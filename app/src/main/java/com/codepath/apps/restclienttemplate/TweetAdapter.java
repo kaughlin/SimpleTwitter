@@ -10,13 +10,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
+
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
 
@@ -53,9 +54,9 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
         holder.tvTweetTime.setText(getRelativeTimeAgo(tweet.createdAt));
         holder.tvHandle.setText("    @" +tweet.handle);
 
-        Glide.with(context)
+        GlideApp.with(context)
                 .load(tweet.user.profileImageUrl)
-                //.Transformation(new RoundedCornersTransformation(30,0 ))
+                .transform(new RoundedCornersTransformation(75,0 ))
                 .into(holder.ivProfileImage);
     }
 
