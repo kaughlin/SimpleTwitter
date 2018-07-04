@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ComposeActivity">
+
+    <Button
+        android:id="@+id/btnCreateTweet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="220dp"
+        android:onClick="sendtw"
+        android:text="tweet" />
+
+    <EditText
+        android:id="@+id/etUserTweet"
+        android:layout_width="338dp"
+        android:layout_height="146dp"
+        android:layout_above="@+id/btnCreateTweet"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="181dp"
+        android:hint="what's happening?"
+        android:maxLength="140"
+        tools:layout_editor_absoluteX="30dp"
+        tools:layout_editor_absoluteY="16dp"
+        android:inputType="textPersonName" />
+
+
+
+
+
+    <Button
+        android:id="@+id/btnExitCompose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="52dp"
+        android:onClick="xbutton"
+        android:text="X" />
+</RelativeLayout>
