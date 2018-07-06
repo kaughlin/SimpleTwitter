@@ -39,7 +39,11 @@
         <activity
             android:name=".ComposeActivity"
             android:label="Create a Tweet" />
-        <activity android:name=".models.ReplyToTweet"></activity>
+
+
+        <activity
+            android:name=".models.ReplyToTweet"
+            android:label="" />
     </application>
 
 </manifest>

@@ -68,6 +68,11 @@ public class ComposeActivity extends AppCompatActivity {
         };
         textField.addTextChangedListener(mTextEditorWatcher);
 
+        //getSupportActionBar().setDisplayShowHomeEnabled(true);
+        //getSupportActionBar().setLogo(R.drawable.vector_compose_shortcut);
+        //getSupportActionBar().setDisplayUseLogoEnabled(true);
+
+
     }
 
     public void sendtw(View view){
