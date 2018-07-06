@@ -33,14 +33,13 @@
                     android:scheme="@string/intent_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".TimelineActivity"
-                  android:label="Home"
-            />
-
-        <activity android:name=".ComposeActivity"
-                  android:label="Create a Tweet"
-            ></activity>
-
+        <activity
+            android:name=".TimelineActivity"
+            android:label="Home" />
+        <activity
+            android:name=".ComposeActivity"
+            android:label="Create a Tweet" />
+        <activity android:name=".models.ReplyToTweet"></activity>
     </application>
 
 </manifest>

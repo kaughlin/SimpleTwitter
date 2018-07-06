@@ -1,15 +1,20 @@
-package com.codepath.apps.restclienttemplate;
+package com.codepath.apps.restclienttemplate.models;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.codepath.apps.restclienttemplate.models.Tweet;
+import com.codepath.apps.restclienttemplate.R;
+import com.codepath.apps.restclienttemplate.TimelineActivity;
+import com.codepath.apps.restclienttemplate.TweetAdapter;
+import com.codepath.apps.restclienttemplate.TwitterApp;
+import com.codepath.apps.restclienttemplate.TwitterClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -17,15 +22,23 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.parceler.Parcels;
 
+import java.util.ArrayList;
+
 import cz.msebera.android.httpclient.Header;
 
-
-public class ComposeActivity extends AppCompatActivity {
+public class ReplyToTweet extends AppCompatActivity {
     EditText textField;
     public AsyncHttpResponseHandler handler;
     public TwitterClient client;
     private Tweet tweet;
+    private Tweet tweet_info;
     private TextView tvCount;
+    private EditText tvHandle;
+
+
+    TweetAdapter tweetAdapter;
+    ArrayList<Tweet> tweets;
+    RecyclerView rvTweets;
 
     // count text method
     private final TextWatcher mTextEditorWatcher = new TextWatcher() {
@@ -42,24 +55,25 @@ public class ComposeActivity extends AppCompatActivity {
     };
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_compose);
+        setContentView(R.layout.activity_reply_to_tweet);
 
-        textField = (EditText) findViewById(R.id.etUserTweet);
+
+
+        //tvHandle =  findViewById(R.id.etUserTweetReply);
+        textField =  findViewById(R.id.etUserTweetReply);
         client = TwitterApp.getRestClient(this);
-        tvCount = (TextView) findViewById(R.id.tvCounter);
+        tvCount = (TextView) findViewById(R.id.tvReplyCounter);
         handler = new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
-                    tweet = Tweet.fromJSON(response);
-                    Intent i = new Intent(ComposeActivity.this, TimelineActivity.class);
-                    i.putExtra("tweet", Parcels.wrap(tweet));
-                    setResult( 19, i);
+                    tweet_info = Tweet.fromJSON(response);
+                    Intent i = new Intent(ReplyToTweet.this, TimelineActivity.class);
+                    i.putExtra("tweet", Parcels.wrap(tweet_info));
+                    setResult( 15, i);
                     finish();
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -68,12 +82,18 @@ public class ComposeActivity extends AppCompatActivity {
         };
         textField.addTextChangedListener(mTextEditorWatcher);
 
+        tweet = (Tweet) Parcels.unwrap(getIntent().getParcelableExtra(Tweet.class.getSimpleName()));
+        textField.setText("@" + tweet.handle);
     }
 
-    public void sendtw(View view){
+
+
+    public void sendReply(View view){
         String text = textField.getText().toString();
         client.sendTweet(text, handler);
     }
+
+
     public void xbutton(View view){
         Intent i = new Intent(this, TimelineActivity.class);
         startActivity(i);

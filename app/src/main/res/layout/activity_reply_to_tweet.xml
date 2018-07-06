@@ -4,36 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ComposeActivity">
+    tools:context=".models.ReplyToTweet">
 
     <Button
-        android:id="@+id/btnCreateTweet"
+        android:id="@+id/btnsendReply"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="220dp"
-        android:onClick="sendtw"
+        android:onClick="sendReply"
         android:text="tweet" />
 
     <EditText
-        android:id="@+id/etUserTweet"
+        android:id="@+id/etUserTweetReply"
         android:layout_width="338dp"
         android:layout_height="146dp"
-        android:layout_above="@+id/btnCreateTweet"
+        android:layout_above="@+id/btnsendReply"
         android:layout_centerHorizontal="true"
-        android:hint="what's happening?"
         android:maxLength="280"
         tools:layout_editor_absoluteX="30dp"
         tools:layout_editor_absoluteY="16dp"
         />
 
-
-
-
-
     <Button
-        android:id="@+id/btnExitCompose"
+        android:id="@+id/btnExitReply"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -43,10 +38,10 @@
         android:text="X" />
 
     <TextView
-        android:id="@+id/tvCounter"
+        android:id="@+id/tvReplyCounter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/etUserTweet"
-        android:layout_alignTop="@+id/etUserTweet"
+        android:layout_alignEnd="@+id/etUserTweetReply"
+        android:layout_alignTop="@+id/etUserTweetReply"
         android:text="0 /240 characters" />
 </RelativeLayout>

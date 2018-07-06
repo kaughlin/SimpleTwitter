@@ -1,16 +1,21 @@
 package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.codepath.apps.restclienttemplate.models.ReplyToTweet;
 import com.codepath.apps.restclienttemplate.models.Tweet;
+
+import org.parceler.Parcels;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -26,9 +31,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
     // pass in the tweets array in the constructor
 
 
-    public TweetAdapter(List<Tweet> tweets){
-        mTweets = tweets;
-    }
+    public TweetAdapter(List<Tweet> tweets){ mTweets = tweets; }
     // for each row, inflate the layout and cache references into ViewHolder
 
     @Override
@@ -45,14 +48,32 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
     // bind the values based on the position of the element
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         // get the data according to position
-        Tweet tweet = mTweets.get(position);
+        final Tweet tweet = mTweets.get(position);
         // populate the views according to this data
         holder.tvUsername.setText(tweet.user.name);
         holder.tvBody.setText(tweet.body);
         holder.tvTweetTime.setText(getRelativeTimeAgo(tweet.createdAt));
         holder.tvHandle.setText("@" +tweet.handle); // display tweet handle
+        holder.tvNumRetweets.setText(tweet.retweet_count);
+        holder.tvNumLikes.setText(tweet.like_count);
+        holder.ibReply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Tweet whotweeted = mTweets.get(position);
+                Intent intent = new Intent(context, ReplyToTweet.class);
+
+                //intent.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(whotweeted.handle));
+                // serialize the movie using parceler, use its short name as a key
+                //intent.putExtra(Tweet.class.getSimpleName().holder.tvHandle.setText("@" + tweet.handle));
+                intent.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(whotweeted));
+
+                context.startActivity(intent);
+
+            }
+        });
 
         GlideApp.with(context)
                 .load(tweet.user.profileImageUrl)
@@ -65,12 +86,15 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
 
     // create ViewHolder class
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder{
         public ImageView ivProfileImage;
         public TextView tvUsername;
         public TextView tvBody;
         public TextView tvTweetTime;
         public TextView tvHandle;
+        public ImageButton ibReply;
+        public TextView tvNumRetweets;
+        public TextView tvNumLikes;
 
         public ViewHolder(View itemView){
             super(itemView);
@@ -82,6 +106,10 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
             tvBody = (TextView) itemView.findViewById(R.id.tvBody);
             tvTweetTime = (TextView) itemView.findViewById(R.id.tvTweetTime);
             tvHandle = (TextView) itemView.findViewById(R.id.tvHandle);
+            ibReply = (ImageButton) itemView.findViewById(R.id.ibReply);
+            tvNumLikes = (TextView) itemView.findViewById(R.id.tvNumLikes);
+            tvNumRetweets = (TextView) itemView.findViewById(R.id.tvNumRetweets);
+
 
         }
 
@@ -105,5 +133,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
 
         return relativeDate;
     }
+
+
 
 }

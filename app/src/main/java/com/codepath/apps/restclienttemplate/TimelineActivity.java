@@ -115,6 +115,13 @@ public class TimelineActivity extends AppCompatActivity {
         startActivityForResult(i, 19);
     }
 
+    /*
+
+    public void goToReply(View view){
+        Intent i = new Intent(this, ReplyToTweet.class);
+        startActivityForResult(i, 15);
+    }*/
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
