@@ -50,8 +50,9 @@ public class ComposeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_compose);
 
         textField = (EditText) findViewById(R.id.etUserTweet);
-        client = TwitterApp.getRestClient(this);
+
         tvCount = (TextView) findViewById(R.id.tvCounter);
+        client = TwitterApp.getRestClient(this);
         handler = new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {

@@ -53,6 +53,13 @@ public class ReplyToTweet extends AppCompatActivity {
         public void afterTextChanged(Editable s) {
         }
     };
+/*
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.tool, menu);
+        return true;
+    }*/
 
 
     @Override
